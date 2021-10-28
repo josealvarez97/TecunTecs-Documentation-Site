@@ -27,12 +27,13 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             // editUrl:
             //   "https://github.com/facebook/docusaurus/edit/main/website/",
           },
-          blog: {
-            showReadingTime: true,
-            // Please change this to your repo.
-            // editUrl: // I guess it would be cool to allow to edit this... like Microsoft does with their docs...
-            // "https://github.com/facebook/docusaurus/edit/main/website/blog/",
-          },
+          blog: false,
+          // blog: {
+          //   showReadingTime: true,
+          //   // Please change this to your repo.
+          //   // editUrl: // I guess it would be cool to allow to edit this... like Microsoft does with their docs...
+          //   // "https://github.com/facebook/docusaurus/edit/main/website/blog/",
+          // },
           theme: {
             customCss: require.resolve("./src/css/custom.css"),
           },
@@ -56,9 +57,9 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
               position: "left",
               label: "Tutorial",
             },
-            { to: "/blog", label: "Blog", position: "left" },
+            // { to: "/blog", label: "Blog", position: "left" },
             {
-              href: "https://tecuntecs-cloud-platform.appspot.com/",
+              href: "https://tecuntecs-cloud-platform.appspot.com/api-docs/",
               label: "TecunTecs API Docs",
               position: "right",
             },
@@ -68,44 +69,52 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
           style: "dark",
           links: [
             {
-              title: "Docs",
+              title: "Learn",
               items: [
                 {
                   label: "Tutorial",
                   to: "/docs/intro",
                 },
-              ],
-            },
-            {
-              title: "Community",
-              items: [
-                {
-                  label: "Stack Overflow",
-                  href: "https://stackoverflow.com/questions/tagged/docusaurus",
-                },
-                {
-                  label: "Discord",
-                  href: "https://discordapp.com/invite/docusaurus",
-                },
-                {
-                  label: "Twitter",
-                  href: "https://twitter.com/docusaurus",
-                },
-              ],
-            },
-            {
-              title: "More",
-              items: [
-                {
-                  label: "Blog",
-                  to: "/blog",
-                },
                 {
                   label: "TecunTecs API Docs",
-                  href: "https://tecuntecs-cloud-platform.appspot.com/",
+                  href: "https://tecuntecs-cloud-platform.appspot.com/api-docs/",
+                },
+                {
+                  label: "YouTube",
+                  href: "https://www.youtube.com/channel/UCOjtHla93JEzbELYEKEVCTw",
                 },
               ],
             },
+            // {
+            //   title: "Community",
+            //   items: [
+            //     {
+            //       label: "Stack Overflow",
+            //       href: "https://stackoverflow.com/questions/tagged/docusaurus",
+            //     },
+            //     {
+            //       label: "Discord",
+            //       href: "https://discordapp.com/invite/docusaurus",
+            //     },
+            //     {
+            //       label: "Twitter",
+            //       href: "https://twitter.com/docusaurus",
+            //     },
+            //   ],
+            // },
+            // {
+            //   title: "More",
+            //   items: [
+            //     // {
+            //     //   label: "Blog",
+            //     //   to: "/blog",
+            //     // },
+            //     {
+            //       label: "TecunTecs API Docs",
+            //       href: "https://tecuntecs-cloud-platform.appspot.com/",
+            //     },
+            //   ],
+            // },
           ],
           copyright: `Copyright © ${new Date().getFullYear()} TecunTecs. Built with Docusaurus.`,
         },

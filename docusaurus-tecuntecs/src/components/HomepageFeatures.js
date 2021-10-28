@@ -4,42 +4,65 @@ import styles from "./HomepageFeatures.module.css";
 
 const FeatureList = [
   {
-    title: "Easy to Use really",
-    Svg: require("../../static/img/undraw_docusaurus_mountain.svg").default,
+    title: "Finest Formulation & Modeling",
+    Svg: require("../../static/img/TecunTecs-Logo.svg").default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Applied mathematics is a fine art. Get inspired from thousands of
+        applications.
+      </>
+    ),
+  },
+
+  {
+    title: "Focus on Insight",
+    Svg: require("../../static/img/TecunTecs-Logo.svg").default,
+    showSvg: true,
+    description: (
+      <>
+        TecunTecs lets you focus on insight, and we&apos;ll do the computations.
       </>
     ),
   },
   {
-    title: "Focus on What Matters",
-    Svg: require("../../static/img/undraw_docusaurus_tree.svg").default,
+    title: "Best Implementation & Delivery",
+    Svg: require("../../static/img/TecunTecs-Logo.svg").default,
     description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
+      <>TecunTecs is expert knowledge as an scalable easy-to-use solution.</>
     ),
   },
   {
-    title: "Powered by React",
-    Svg: require("../../static/img/undraw_docusaurus_react.svg").default,
+    title: "Optimization-As-A-Service",
+    Svg: require("../../static/img/TecunTecs-Logo.svg").default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Leverage mathematical frameworks across a myriad of problem instances.
+      </>
+    ),
+  },
+
+  {
+    title: "",
+    Svg: require("../../static/img/TecunTecs-Logo.svg").default,
+    description: <> </>,
+  },
+  {
+    title: "Statistics-As-A-Service",
+    Svg: require("../../static/img/TecunTecs-Logo.svg").default,
+    description: (
+      <>
+        Applied mathematics is a fine art. Get inspired from hundreds of
+        applications.
       </>
     ),
   },
 ];
 
-function Feature({ Svg, title, description }) {
+function Feature({ Svg, title, description, showSvg = false }) {
   return (
     <div className={clsx("col col--4")}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} alt={title} />
+        {showSvg && <Svg className={styles.featureSvg} alt={title} />}
       </div>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
