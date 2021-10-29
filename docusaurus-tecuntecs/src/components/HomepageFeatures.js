@@ -51,8 +51,8 @@ const FeatureList = [
     Svg: require("../../static/img/TecunTecs-Logo.svg").default,
     description: (
       <>
-        Applied mathematics is a fine art. Get inspired from hundreds of
-        applications.
+        Synthetic control unit methods and genetic statistical matching as a
+        service.
       </>
     ),
   },

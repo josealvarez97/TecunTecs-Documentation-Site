@@ -1,5 +1,7 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const math = require("remark-math");
+const katex = require("rehype-katex");
 
 // With JSDoc @type annotations, IDEs can provide config autocompletion
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -26,6 +28,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             // Please change this to your repo.
             // editUrl:
             //   "https://github.com/facebook/docusaurus/edit/main/website/",
+            remarkPlugins: [math],
+            rehypePlugins: [katex],
           },
           blog: false,
           // blog: {
@@ -40,7 +44,14 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
         }),
       ],
     ],
-
+    stylesheets: [
+      {
+        href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
+        integrity:
+          "sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc",
+        crossorigin: "anonymous",
+      },
+    ],
     themeConfig:
       /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
       ({
@@ -59,7 +70,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
             },
             // { to: "/blog", label: "Blog", position: "left" },
             {
-              href: "https://tecuntecs-cloud-platform.appspot.com/api-docs/",
+              href: "https://api.tecuntecs.com/api-docs/",
               label: "TecunTecs API Docs",
               position: "right",
             },
@@ -77,7 +88,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
                 },
                 {
                   label: "TecunTecs API Docs",
-                  href: "https://tecuntecs-cloud-platform.appspot.com/api-docs/",
+                  href: "https://api.tecuntecs.com/api-docs/",
                 },
                 {
                   label: "YouTube",
