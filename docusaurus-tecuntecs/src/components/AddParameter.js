@@ -10,7 +10,7 @@ const AddParameter = ({ onCalculate }) => {
   const [b, setB] = useState(1);
   const [n, setN] = useState(4);
   const [method, setMethod] = useState("trapezoidal");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState({});
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -98,7 +98,9 @@ const AddParameter = ({ onCalculate }) => {
         className={`${styles["btn"]} ${styles["btn-block"]}`}
       />
       <div>
-        <p>{result}</p>
+        <br></br>
+        <h2>Result: </h2>
+        <p>{"result" in result && result.result}</p>
       </div>
     </form>
   );
