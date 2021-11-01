@@ -76,10 +76,18 @@ const AddParameter = ({ onCalculate }) => {
       <div className={styles["form-control"]}>
         <label>
           {" "}
-          <code>method</code>: Algorithm for numerical integration (
-          <code>trapezoidal</code> or <code>midpoint</code>).
+          <p>
+            <code>method</code>: Algorithm for numerical integration (
+            <code>trapezoidal</code> or <code>midpoint</code>).
+          </p>
           {method == "trapezoidal" && (
-            <BlockMath math="\text{trapezoidal formula here}" />
+            <div>
+              {/*<BlockMath math="\text{trapezoidal formula here}" />*/}
+              <img
+                src="https://api.tecuntecs.com/archive/Trapezoidal-Rule-TecunTecs.gif"
+                alt="Trapezoidal Rule GIF"
+              />
+            </div>
           )}
           {method == "midpoint" && (
             <BlockMath math="\text{midpoint formula here}" />

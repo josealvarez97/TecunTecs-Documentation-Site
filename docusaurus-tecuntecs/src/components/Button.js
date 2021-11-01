@@ -1,10 +1,7 @@
 import React from "react";
 import styles from "./Calculator.module.css";
 
-const Button = ({ color, text }) => {
-  const onClick = (e) => {
-    console.log("click");
-  };
+const Button = ({ color, text, onClick }) => {
   return (
     <button
       onClick={onClick}
