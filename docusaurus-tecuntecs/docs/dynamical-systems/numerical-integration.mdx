@@ -1,0 +1,45 @@
+---
+sidebar_position: 1
+---
+
+# Numerical Integration
+
+Few things are easier than a rate of change that depends upon the independent 
+variable. In a way (every way), this is any–single variable–function that you have set sail to 
+integrate.
+
+$$
+\frac{dx}{dt}=f(t) \Rightarrow \int \frac{dx}{dt} dx=x(t)
+$$
+
+You would compute the previous with an algorithm such as the midpoint method 
+or trapezoidal rule. Just start with a given value of $t$, calculate $f(t)$, 
+and multiply by a small amount of change $x$.
+
+import Calculator from '../../src/components/Calculator'
+import ParameterContainer from '../../src/components/ParameterContainer'
+import {integrate, paramInfo} from './numerical-integration.js';
+import InputParameter from '../../src/components/InputParameter'
+
+
+<Calculator title="Calculator">
+    <ParameterContainer onCalculate={integrate} paramInfo={paramInfo}>
+        <InputParameter key="testKey"
+            name="myTest"
+            description="This is a test parameter"
+            blockmath="\frac{\partial \Psi}{\partial t}"
+            type="text"
+            placeholder="lambda t: 3*(t**2)*exp(t**3)"
+        />
+        <InputParameter key="anothertestkey"
+            name="secondTest"
+            description="This is a test parameter"
+            blockmath="\frac{\partial \Psi}{\partial t}"
+            type="text"
+            placeholder={100}
+        />
+    </ParameterContainer>
+</Calculator>
+
+Work in progres...
+![Trapezoidal Rule](/img/integration/Trapezoidal-Rule-TecunTecs.gif)

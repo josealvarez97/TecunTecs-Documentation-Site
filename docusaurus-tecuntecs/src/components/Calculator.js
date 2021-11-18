@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import styles from "./Calculator.module.css";
 import Button from "./Button";
 import Parameter from "./Parameter";
-import AddParameter from "./AddParameter";
+import ParameterContainer from "./ParameterContainer";
 
 const calculateParameter = async (parameter) => {
   console.log("calculateParameter()");
@@ -27,7 +27,8 @@ const calculateParameter = async (parameter) => {
   return data;
 };
 
-const Header = ({ title }) => {
+const Calculator = ({ title, children }) => {
+  
   const onClick = (e) => {
     console.log("click");
   };
@@ -36,7 +37,7 @@ const Header = ({ title }) => {
       <header className={styles.header}>
         <h2>{title}</h2>
       </header>
-      <AddParameter onCalculate={calculateParameter} />
+      {children}
     </div>
   );
 };
@@ -50,4 +51,4 @@ const Header = ({ title }) => {
 //   backgroundColor: "black",
 // };
 
-export default Header;
+export default Calculator;
