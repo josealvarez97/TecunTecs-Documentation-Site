@@ -66,7 +66,7 @@ const katex = require("rehype-katex");
               type: "doc",
               docId: "intro",
               position: "left",
-              label: "Tutorial",
+              label: "Solutions by Application",
             },
             // { to: "/blog", label: "Blog", position: "left" },
             {

@@ -5,6 +5,50 @@ sidebar_position: 2
 # Computational Fluid Dynamics
 
 
-import Calculator from '../../src/components/Calculator'
+## Overview of Navier-Stokes Equations
 
-<Calculator title="Calculator"></Calculator>
+A partial differential equation is an equation of the form:
+
+$$
+f(u, \frac{\partial u}{\partial x}, ..., \partial^n_x u, \frac{\partial u}{\partial y}, ..., \partial^n_y u, x, y)=0
+$$
+
+It is important to remember that there is nothing different about the Navier-Stokes equations, the mathematical model that governs the dynamics of fluids.
+
+### Continuity equation (conservation of mass)
+
+$$
+\nabla \cdot \mathbf{u}=0
+$$
+$$
+\Updownarrow
+$$
+$$
+\frac{\partial u}{\partial x} + \frac{\partial u}{\partial y} = 0
+$$
+
+### Conservation (balance) of momentum
+
+$$
+\frac{\partial \mathbf{u}}{\partial t} + \mathbf{u}\cdot \nabla \mathbf{u} = - \frac{1}{\rho} \nabla p + \nu \nabla^2\mathbf{u}
+$$
+$$
+\Updownarrow
+$$
+$$
+\frac{\partial u}{\partial t} +  \left( u \frac{\partial u}{\partial x}+ v\frac{\partial u}{\partial y} \right) = - \frac{1}{\rho} \frac{\partial p}{\partial x} + \nu \left(\frac{\partial^2 u}{\partial^2 x} + \frac{\partial^2 u}{\partial^2 y}\right)
+$$
+$$
+\frac{\partial v}{\partial t} + \left( u \frac{\partial v}{\partial x}+ v\frac{\partial v}{\partial y} \right) = - \frac{1}{\rho} \frac{\partial p}{\partial y} + \nu \left(\frac{\partial^2 v}{\partial^2 x} + \frac{\partial^2 v}{\partial^2 y}\right)
+$$
+
+import Calculator from '../../src/components/Calculator/Calculator'
+import ParameterContainer from '../../src/components/Calculator/ParameterContainer'
+import {solveCavityFlow2D, paramInfo} from './computational-fluid-dynamics.js';
+
+
+<Calculator title="2D Cavity Flow Simulator">
+    <ParameterContainer onCalculate={solveCavityFlow2D} paramInfo={paramInfo}>
+        
+    </ParameterContainer> 
+</Calculator>

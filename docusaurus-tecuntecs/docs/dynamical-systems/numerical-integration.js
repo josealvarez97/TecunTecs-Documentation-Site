@@ -44,16 +44,13 @@ const integrate = async (parameterSet) => {
   console.log("calculateParameter()");
   console.log(JSON.stringify(parameterSet));
 
-  const res = await fetch(
-    "https://tecuntecs-cloud-platform.appspot.com/integrate",
-    {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(parameterSet),
-    }
-  );
+  const res = await fetch("https://api.tecuntecs.com/integrate", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(parameterSet),
+  });
 
   const data = res.json();
   console.log(data);

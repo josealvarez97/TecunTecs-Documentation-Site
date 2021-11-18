@@ -64,6 +64,12 @@ const ParameterContainer = ({ onCalculate, paramInfo }) => {
         <br></br>
         <h2>Result: </h2>
         <p>{"result" in result && result.result}</p>
+        <p>
+          {"data" in result && <strong>{JSON.stringify(result.data)}</strong>}
+        </p>
+        <p>{"resultsZip" in result && result.resultsZip}</p>
+        <p>{"resultsPng" in result && result.resultsPng}</p>
+        {"data" in result && <img src={result.data.resultsPng} />}
       </div>
     </form>
   );
