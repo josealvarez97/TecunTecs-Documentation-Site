@@ -43,12 +43,12 @@ $$
 $$
 
 import Calculator from '../../src/components/Calculator/Calculator'
-import ParameterContainer from '../../src/components/Calculator/ParameterContainer'
-import {solveCavityFlow2D, paramInfo} from './computational-fluid-dynamics.js';
+import {solveCavityFlow2D, paramInfo, ResultContainer} from './computational-fluid-dynamics.js';
 
-
-<Calculator title="2D Cavity Flow Simulator">
-    <ParameterContainer onCalculate={solveCavityFlow2D} paramInfo={paramInfo}>
-        
-    </ParameterContainer> 
-</Calculator>
+<Calculator 
+    title="2D Cavity Flow Simulator"
+    onCalculate={solveCavityFlow2D}
+    paramInfo={paramInfo}
+    resultComponent={ResultContainer}
+    
+/>

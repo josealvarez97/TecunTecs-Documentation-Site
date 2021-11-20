@@ -5,9 +5,17 @@ import "katex/dist/katex.min.css";
 import { InlineMath, BlockMath } from "react-katex";
 import InputParameter from "./InputParameter";
 
-const ParameterContainer = ({ onCalculate, paramInfo }) => {
+const ParameterContainer = ({ onCalculate, paramInfo, result, setResult }) => {
   let paramDict = {};
   let setParamDict = {};
+
+  const [simulationIsRunning, setSimulationIsRunning] = useState(false);
+  // useEffect(() => {
+  //   const intervalID = setTimeout(() => {
+  //     setSimulationIsRunning((simulationIsRunning) => !simulationIsRunning);
+  //   }, 1000);
+  //   return () => clearInterval(intervalID);
+  // }, []);
 
   console.log(paramInfo);
   paramInfo.forEach((info) => {
@@ -31,14 +39,15 @@ const ParameterContainer = ({ onCalculate, paramInfo }) => {
   // const [b, setB] = useState(1);
   // const [n, setN] = useState(4);
   // const [method, setMethod] = useState("trapezoidal");
-  const [result, setResult] = useState({});
+  // const [result, setResult] = useState({});
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
+    setSimulationIsRunning(true);
     // const result = await onCalculate({ f, a, b, n, method });
     const result = await onCalculate(paramDict);
     setResult(result);
+    setSimulationIsRunning(false);
   };
 
   return (
@@ -60,17 +69,9 @@ const ParameterContainer = ({ onCalculate, paramInfo }) => {
         value="Calculate"
         className={`${styles["btn"]} ${styles["btn-block"]}`}
       />
-      <div>
-        <br></br>
-        <h2>Result: </h2>
-        <p>{"result" in result && result.result}</p>
-        <p>
-          {"data" in result && <strong>{JSON.stringify(result.data)}</strong>}
-        </p>
-        <p>{"resultsZip" in result && result.resultsZip}</p>
-        <p>{"resultsPng" in result && result.resultsPng}</p>
-        {"data" in result && <img src={result.data.resultsPng} />}
-      </div>
+      {simulationIsRunning && <p>Simulation is running...</p>}
+
+      {/*https://stackoverflow.com/questions/39652686/pass-react-component-as-props*/}
     </form>
   );
 };
@@ -155,4 +156,18 @@ export default ParameterContainer;
 //     value={method}
 //     onChange={(e) => setMethod(e.target.value)}
 //   />
+// </div>
+
+// result stuff
+
+// <div>
+//   <br></br>
+//   <h2>Result: </h2>
+//   <p>{"result" in result && result.result}</p>
+//   <p>
+//     {"data" in result && <strong>{JSON.stringify(result.data)}</strong>}
+//   </p>
+//   <p>{"resultsZip" in result && result.resultsZip}</p>
+//   <p>{"resultsPng" in result && result.resultsPng}</p>
+//   {"data" in result && <img src={result.data.resultsPng} />}
 // </div>

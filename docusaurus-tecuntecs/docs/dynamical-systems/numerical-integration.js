@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 const paramInfo = [
   {
     name: "f",
@@ -57,4 +59,13 @@ const integrate = async (parameterSet) => {
   return data;
 };
 
-export { integrate, paramInfo };
+const ResultContainer = ({ result }) => {
+  return (
+    <div>
+      <h2>Result:</h2>
+      {"result" in result && <p>{result.result}</p>}
+    </div>
+  );
+};
+
+export { integrate, paramInfo, ResultContainer };

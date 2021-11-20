@@ -1,16 +1,25 @@
+import React, { useState } from "react";
+
 const paramInfo = [
   {
-    name: "nt",
-    description: "Number of steps.",
+    name: "density",
+    description: "Value of density.",
+    blockmath: "\\rho\\text{: density}",
     type: "number",
-    placeholder: 100,
+    placeholder: 1,
   },
   {
     name: "viscosity",
     description: "Value of kinetic viscosity.",
     blockmath: "\\nu\\text{: kinetic viscosity}",
     type: "number",
-    placeholder: 1,
+    placeholder: 0.1,
+  },
+  {
+    name: "nt",
+    description: "Number of steps.",
+    type: "number",
+    placeholder: 100,
   },
 ];
 
@@ -30,9 +39,23 @@ const solveCavityFlow2D = async (parameterSet) => {
   );
 
   const data = res.json();
-    console.log(data);
+  console.log(data);
 
   return data;
 };
 
-export { solveCavityFlow2D, paramInfo };
+const ResultContainer = ({ result }) => {
+  return (
+    <div>
+      <h2>Result:</h2>
+      {"resultsZip" in result && (
+        <p>
+          Results ZIP File: <a href={result.resultsZip}>{result.resultsZip}</a>
+        </p>
+      )}
+      {"resultsPng" in result && <img src={result.resultsPng} />}
+    </div>
+  );
+};
+
+export { solveCavityFlow2D, paramInfo, ResultContainer };

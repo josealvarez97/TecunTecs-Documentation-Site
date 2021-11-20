@@ -17,29 +17,15 @@ or trapezoidal rule. Just start with a given value of $t$, calculate $f(t)$,
 and multiply by a small amount of change $x$.
 
 import Calculator from '../../src/components/Calculator/Calculator'
-import ParameterContainer from '../../src/components/Calculator/ParameterContainer'
-import {integrate, paramInfo} from './numerical-integration.js';
-import InputParameter from '../../src/components/Calculator/InputParameter'
+import {integrate, paramInfo, ResultContainer} from './numerical-integration.js';
 
 
-<Calculator title="Calculator">
-    <ParameterContainer onCalculate={integrate} paramInfo={paramInfo}>
-        <InputParameter key="testKey"
-            name="myTest"
-            description="This is a test parameter"
-            blockmath="\frac{\partial \Psi}{\partial t}"
-            type="text"
-            placeholder="lambda t: 3*(t**2)*exp(t**3)"
-        />
-        <InputParameter key="anothertestkey"
-            name="secondTest"
-            description="This is a test parameter"
-            blockmath="\frac{\partial \Psi}{\partial t}"
-            type="text"
-            placeholder={100}
-        />
-    </ParameterContainer>
-</Calculator>
+<Calculator 
+    title="Calculator" 
+    onCalculate={integrate} 
+    paramInfo={paramInfo} 
+    resultComponent={ResultContainer} 
+/>
 
 Work in progres...
 ![Trapezoidal Rule](/img/integration/Trapezoidal-Rule-TecunTecs.gif)

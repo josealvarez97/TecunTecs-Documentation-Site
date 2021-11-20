@@ -44,6 +44,18 @@ const katex = require("rehype-katex");
         }),
       ],
     ],
+    // https://stackoverflow.com/questions/60783595/is-there-a-way-to-have-two-docs-in-docusaurus-2
+    plugins: [
+      [
+        "@docusaurus/plugin-content-docs",
+        {
+          id: "docs-industry",
+          path: "docs-industry",
+          routeBasePath: "docs-industry",
+          sidebarPath: require.resolve("./sidebars.js"),
+        },
+      ],
+    ],
     stylesheets: [
       {
         href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
@@ -68,7 +80,13 @@ const katex = require("rehype-katex");
               position: "left",
               label: "Solutions by Application",
             },
-            // { to: "/blog", label: "Blog", position: "left" },
+            {
+              to: "/docs-industry/intro",
+              position: "left",
+              label: "Solutions by Industry",
+              activeBaseRegex: `/docs-industry/`,
+            },
+            { to: "/blog", label: "Case Studies", position: "left" },
             {
               href: "https://api.tecuntecs.com/api-docs/",
               label: "TecunTecs API Docs",

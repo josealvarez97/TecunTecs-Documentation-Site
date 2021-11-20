@@ -27,8 +27,9 @@ const calculateParameter = async (parameter) => {
   return data;
 };
 
-const Calculator = ({ title, children }) => {
-  
+const Calculator = ({ title, onCalculate, paramInfo, resultComponent }) => {
+  const [result, setResult] = useState({});
+
   const onClick = (e) => {
     console.log("click");
   };
@@ -37,7 +38,16 @@ const Calculator = ({ title, children }) => {
       <header className={styles.header}>
         <h2>{title}</h2>
       </header>
-      {children}
+      <ParameterContainer
+        onCalculate={onCalculate}
+        paramInfo={paramInfo}
+        result={result}
+        setResult={setResult}
+      />
+      {/*Life saver https://reactjs.org/docs/jsx-in-depth.html*/}
+      {React.createElement(resultComponent, {
+        result,
+      })}
     </div>
   );
 };
