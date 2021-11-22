@@ -31,13 +31,12 @@ const katex = require("rehype-katex");
             remarkPlugins: [math],
             rehypePlugins: [katex],
           },
-          blog: false,
-          // blog: {
-          //   showReadingTime: true,
-          //   // Please change this to your repo.
-          //   // editUrl: // I guess it would be cool to allow to edit this... like Microsoft does with their docs...
-          //   // "https://github.com/facebook/docusaurus/edit/main/website/blog/",
-          // },
+          blog: {
+            showReadingTime: true,
+            // Please change this to your repo.
+            // editUrl: // I guess it would be cool to allow to edit this... like Microsoft does with their docs...
+            // "https://github.com/facebook/docusaurus/edit/main/website/blog/",
+          },
           theme: {
             customCss: require.resolve("./src/css/custom.css"),
           },

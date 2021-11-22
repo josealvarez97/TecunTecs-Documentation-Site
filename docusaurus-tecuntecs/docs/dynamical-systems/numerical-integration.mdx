@@ -4,17 +4,141 @@ sidebar_position: 1
 
 # Numerical Integration
 
-Few things are easier than a rate of change that depends upon the independent 
-variable. In a way (every way), this is any–single variable–function that you have set sail to 
-integrate.
+Most integrals are not tractable by pen and paper, and that 
+is why a solution like Wolfram Alpha or TecunTecs based on 
+numerical mathematics may be useful.
+
+## Basic Ideas About Integration
+
+We usually calculate an integral by
+
+$$
+\int_a^b x'(t) dx = x(b) - x(a)
+$$
+
+But recall that an integral is nothing more than an 
+accumulation of very small changes
+
+$$
+\int_a^b x'(t) dt \approx 
+\left[ \frac{x_1 - x_0}{\Delta t}
++ \frac{x_2 - x_1}{\Delta t} + \cdot \cdot \cdot
++ \frac{x_n - x_{n-1}}{\Delta t}
+\right] \Delta t
+$$
+
+The previous expression is a good opportunity to 
+appreciate the intuition behind the Fundamental Theorem of Calculus, 
+for $x(b)-x(a)$ certainly corresponds to $x_n-x_0$.
+
+**The problem is that we don't always know $x(t)$!**
+
+## Numerical integration
+
+How do we approach the problem if we don't know $x(t)$? Few cases are easier than a 
+rate of change that depends upon one independent 
+variable
 
 $$
 \frac{dx}{dt}=f(t) \Rightarrow \int \frac{dx}{dt} dx=x(t)
 $$
 
 You would compute the previous with an algorithm such as the midpoint method 
-or trapezoidal rule. Just start with a given value of $t$, calculate $f(t)$, 
-and multiply by a small amount of change $x$.
+or trapezoidal method. The basic idea is that you would 
+start with a given value of $t$, approximate the value 
+of the rate of change $dx/dt$, 
+and multiply by a small amount of change $\Delta t$.
+
+### Trapezoidal Method
+
+$$
+\int_a^b f(t) dt
+$$
+$$
+\approx \sum_{i=1}^n \frac{f(t_{i-1}) + f(t_i)}{2} \Delta t
+$$
+
+### Midpoint Method
+
+$$
+\int_a^b f(t) dt
+$$
+$$
+\approx \sum_{i=1}^n f(a + \frac{\Delta t}{2} + i \Delta t) \Delta t
+$$
+
+## TecunTecs API
+
+For more information, review the [TecunTecs API Docs](https://api.tecuntecs.com/api-docs/) and check the [`integrate`](https://api.tecuntecs.com/api-docs/#/Dynamical%20systems/post_integrate) route.
+
+### Programmatic HTTP Call
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
+```js
+// Node.js
+const fetch = require("node-fetch");
+
+const integrate = async (parameterSet) => {
+  const res = await fetch("https://api.tecuntecs.com/integrate", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(parameterSet),
+  });
+
+  const data = res.json();
+  return data;
+};
+
+integrate({
+  f: "lambda t: 3*(t**2)*exp(t**3)",
+  a: 0,
+  b: 1,
+  n: 4,
+  method: "trapezoidal",
+}).then((result) => console.log(result));
+
+//Output
+// {
+//   description: 'Integration results (trapezoidal rule).',
+//   result: 1.9227167504675762
+// }
+
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```py
+import requests
+parameterSet = {
+  "f": "lambda t: 3*(t**2)*exp(t**3)",
+  "a": 0,
+  "b": 1,
+  "n": 4,
+  "method": "trapezoidal"
+}
+r = requests.post('https://api.tecuntecs.com/integrate',json=parameterSet)
+print(r.json())
+# Output
+# {'description': 'Integration results (trapezoidal rule).', 'result': 1.9227167504675762}
+```
+
+</TabItem>
+</Tabs>
+
+
+### Interactive Interface
+
+The TecunTecs API facilitates the integration of scientific computing code 
+with delightful interactive interfaces.
 
 import Calculator from '../../src/components/Calculator/Calculator'
 import {integrate, paramInfo, ResultContainer} from './numerical-integration.js';
@@ -27,5 +151,9 @@ import {integrate, paramInfo, ResultContainer} from './numerical-integration.js'
     resultComponent={ResultContainer} 
 />
 
-Work in progres...
-![Trapezoidal Rule](/img/integration/Trapezoidal-Rule-TecunTecs.gif)
+
+## References
+
+Linge, S., & Langtangen, H. P. (2020). _Programming for Computations-Python: A Gentle Introduction to Numerical Simulations with Python 3.6_ (p. 332). Springer Nature.
+
+Strang, G. (2014). _Differential equations and linear algebra_ (p. 512). Wellesley: Wellesley-Cambridge Press.
