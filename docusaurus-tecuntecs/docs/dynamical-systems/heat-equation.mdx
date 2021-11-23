@@ -4,3 +4,94 @@ sidebar_position: 2
 
 # Heat Equation
 
+The one dimensional heat equation is
+
+$$
+\frac{\partial T}{\partial t} (x,t) = \alpha \frac{\partial ^2 T}{\partial x^2} (x,t)
+$$
+
+In other words, the rate of change of the temperature ($T$) with 
+respect to time ($t$) is proportional to the rate of change, of the rate of 
+change, of the temperature with respect to the position ($x$). This means that the rate of heat transfer
+is the greatest at those points where the temperature differs the most from 
+the surrounding areas. 
+
+## Visual Intuition
+
+We recommend the following video by 3Blue1Brown to gain visual intuition.
+
+<div class="video-container">
+<iframe width="100%" height="auto" src="https://www.youtube.com/embed/ToIXSwZ1pJU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+</div>
+
+## Boundary Conditions and Initial Conditions
+
+Solution to the Heat Equation requires specification of boundary conditions at
+$x = 0$ and $x = x_{max}=L$, and initial conditions at $t = 0$. 
+
+For simplicity, let us consider fixed (Dirichlet) boundary conditions
+
+$$
+T(0, t) = T_0
+$$
+
+$$
+T(L, t) = T_{L}
+$$
+
+$$
+T(x, 0) = f_0(x)
+$$
+
+We could also potentially consider rates of change as 
+(Neumann) boundary conditions if we wanted to.
+
+## Schemes for the Heat Equation
+
+Applying the finite-difference method to a differential equation 
+involves nothing more than replacing all derivatives with difference formulas.
+
+### Forward time, centered space
+
+:::caution
+
+The notation $T_n(i)$ means the (approximated) value of the temperature at the temporal step $n$, position $i$. 
+
+:::
+
+_Forward time, centered space_ **(FTCS)** means that we will use a forward difference 
+approximation for the time derivative, and a centered difference approximation 
+for the second space derivative.
+
+$$
+\frac{T_{n+1}(i) - T_{n}(i)} {\Delta t} = \alpha \frac{T_n(i-1) - 2 T_n(i) + T_n(i+1)}{\Delta x^2}
+$$
+
+Once we have a version of the Heat Equation that is "discretized," we can proceed to solve for the 
+term(s) of interest; in this case, we would solve for $T_{n+1}(i)$.
+
+
+:::info
+
+$$
+T_{n+1}(i) = T_{n}(i) + \frac{\alpha \Delta t}{\Delta x^2} (T_n(i-1) - 2 T_n(i) + T_n(i+1))
+$$
+
+
+**Voilà!** Now we have a temporal discretization that gives us the temperature at the next temporal 
+step $n+1$ based on values we know at the temporal step $n$.
+
+:::info
+
+## TecunTecs API
+
+For more information, review the [TecunTecs API Docs](https://api.tecuntecs.com/api-docs/) and check the [`/solve-pde/heat-equation`](https://api.tecuntecs.com/api-docs/#/Dynamical%20systems/post_solve_pde_heat_equation) route.
+
+
+## References
+
+Recktenwald, G. W. (2004). Finite-difference approximations to the heat equation. _Mechanical Engineering_, 10(01).
+
+Sanderson, G. (2019a). _But what is a partial differential equation?_ 3blue1brown. Retrieved from https://www.3blue1brown.com/lessons/pdes
+
+Sanderson, G. (2019b). _Solving the heat equation_. 3blue1brown. Retrieved from https://www.3blue1brown.com/lessons/heat-equation
