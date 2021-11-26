@@ -70,13 +70,11 @@ $$
 Once we have a version of the Heat Equation that is "discretized," we can proceed to solve for the 
 term(s) of interest; in this case, we would solve for $T_{n+1}(i)$.
 
-
-:::info
-
 $$
 T_{n+1}(i) = T_{n}(i) + \frac{\alpha \Delta t}{\Delta x^2} (T_n(i-1) - 2 T_n(i) + T_n(i+1))
 $$
 
+:::info
 
 **Voilà!** Now we have a temporal discretization that gives us the temperature at the next temporal 
 step $n+1$ based on values we know at the temporal step $n$.
@@ -87,6 +85,16 @@ step $n+1$ based on values we know at the temporal step $n$.
 
 For more information, review the [TecunTecs API Docs](https://api.tecuntecs.com/api-docs/) and check the [`/solve-pde/heat-equation`](https://api.tecuntecs.com/api-docs/#/Dynamical%20systems/post_solve_pde_heat_equation) route.
 
+import Calculator from '../../src/components/Calculator/Calculator'
+import {solveHeatEquation, paramInfo, ResultContainer} from './heat-equation.js';
+
+<Calculator 
+    title="Heat Equation Solver"
+    onCalculate={solveHeatEquation}
+    paramInfo={paramInfo}
+    resultComponent={ResultContainer}
+    
+/>
 
 ## References
 
