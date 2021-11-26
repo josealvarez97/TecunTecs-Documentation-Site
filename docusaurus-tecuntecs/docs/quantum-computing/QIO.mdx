@@ -2,6 +2,116 @@
 sidebar_position: 1
 ---
 
-# QIO
+# Quantum-inspired Optimization (QIO)
 
-Quantum-inspired Optimization (QIO)
+Quantum-inspired Optimization (QIO) is not really quantum computing, but it will be. 
+QIO might be said to be the future input format of certain types of quantum computers.
+This input format is called _Quadratic Unconstrained Binary Optimization_ (QUBO), 
+a relatively new approach to optimization with many promising applications.
+
+## Quadratic Unconstrained Binary Optimization (QUBO)
+
+Quadratic unconstrained binary optimization (QUBO) has vast applications from 
+finance and economics to machine learning. Oftentimes, applications appear 
+naturally in the form of QUBO, but in many cases, important constrained nonlinear 
+binary models have been re-cast into the form of QUBO problems (Kochenberger et al., 2014, p. 59). 
+
+Mathematical models applicable across different fields include 
+
+* Quadratic Assignment Problems; 
+* Capital Budgeting Problems; 
+* Multiple Knapsack Problems; 
+* Task Allocation Problems (distributed computer systems); 
+* Maximum Diversity Problems; 
+* P-Median Problems; 
+* Asymmetric Assignment Problems; 
+* Symmetric Assignment Problems; 
+* Side Constrained Assignment Problems; 
+* Quadratic Knapsack Problems; 
+* Constraint Satisfaction Problems (CSPs); 
+* Discrete Tomography Problems; 
+* Set Partitioning Problems; 
+* Set Packing Problems; 
+* Warehouse Location Problems; 
+* Maximum Clique Problems; 
+* Maximum Independent Set Problems; 
+* Maximum Cut Problems; 
+* Graph Coloring Problems; 
+* Number Partitioning Problems; 
+* Linear Ordering Problems; 
+* Clique Partitioning Problems; 
+* and SAT problems (Glover & Konchenberger, 2006, p. 113).
+
+According to Glover et al. (2018), “Through special reformulation techniques that are easy to apply, 
+the power of QUBO solvers can be used to efficiently solve many important problems once they are put 
+into the QUBO framework.”
+
+### Structure of a Binary Optimization Problem
+
+The problem is formally expressed as:
+
+$$
+\min_x x^T Qx
+$$
+$$
+\text{s.t.    } x_i \in \{-1,1\}
+$$
+
+where $Q$ is a symmetric $n \times n$ matrix.
+
+Because we can model the linear constraints using quadratic equations, we can write the equivalent polynomial formulation:
+
+$$
+\min_x x^T Qx
+$$
+$$
+\text{s.t.    } x_i^2 = 1
+$$
+
+In other words, $x$ is a vector of binary decision variables to 
+optimize and $Q$ is a square matrix of constants that defines the 
+problem.
+
+## Examples
+
+### Number Partitioning Problem (NPP)
+
+The number partitioning problem is to divide a given set of integers 
+into a collection of subsets, so that the sum of the numbers in each 
+subset are as nearly equal as possible. It is NP-complete.
+
+#### Complete Anytime Algorithms for NPP
+
+(Korf, 1998, p. 182) presented a case study of a different approach 
+to algorithm design. He starts with the best polynomial-time 
+approximation algorithm for a problem. The idea is to find the 
+approximate solution based on a heuristic first, and let the algorithm 
+continue to run to find only better solutions. He claims that, 
+eventually, it should find and verify the optimal solution.
+
+#### Quantum-inspired Approach to NPP
+
+Alidaee et al. (2005) recast the problem as a QUBO problem. Their approach accommodates both the two-subset partition case as well as the more general case of multiple subsets. The novelty lies in the fact of illustrating a common formulation for a variety of NPP problems that can be solved by recently developed metaheuristic methods.
+
+## TecunTecs API
+
+For more information, review the [TecunTecs API Docs](https://api.tecuntecs.com/api-docs/) 
+and check the [`/optimize-qio/number-partition`](https://api.tecuntecs.com/api-docs/#/Stretch%20Goal%3A%20Quantum-inspired%20Optimization/post_optimize_qio_number_partition) route.
+
+
+
+## References
+
+Alidaee, B., Glover, F., & Kochenberger, G. A. (2005). 
+A new modeling and solution approach for the number partitioning 
+problem. _Journal of Applied Mathematics and Decision Sciences_. 
+https://doi.org/10.1155/JAMDS.2005.113
+
+Glover, F., Kochenberger, G., & Du, Y. (2018). 
+_Quantum Bridge Analytics I: A Tutorial on Formulating and Using QUBO Models_. 
+Retrieved from https://arxiv.org/pdf/1811.11538.pdf
+
+Kochenberger, G., Hao, J.-K., Glover, F., Lewis, M., Lu, Z., 
+Wang, H., & Wang, Y. (2014, April 18). 
+The unconstrained binary quadratic programming problem: a survey. 
+_Journal of Combinatorial Optimization_, 28, 58-81.
