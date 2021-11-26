@@ -20,7 +20,7 @@ const paramInfo = [
     description: "Initial condition at t=0.",
     blockmath: "T(x, 0) = f_0(x)",
     type: "text",
-    placeholder: "lambda x: sin(x) + x**(1/2)",
+    placeholder: "lambda x: sin(pi*x/1)",
   },
   {
     name: "alpha",
@@ -31,21 +31,26 @@ const paramInfo = [
   },
   {
     name: "Nx",
+    description: "number of mesh points in x direction",
     type: "number",
     placeholder: 20,
   },
   {
     name: "x_max",
+    description: "maximum value of x domain",
+    blockmath: "x_{max}=L",
     type: "number",
     placeholder: 1,
   },
   {
-    name: "Mx",
+    name: "Mt",
+    description: "number of time steps",
     type: "number",
     placeholder: 20,
   },
   {
     name: "t_max",
+    description: "end time",
     type: "number",
     placeholder: 1,
   },
