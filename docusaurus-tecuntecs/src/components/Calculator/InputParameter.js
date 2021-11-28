@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Calculator.module.css";
 import "katex/dist/katex.min.css";
 import { InlineMath, BlockMath } from "react-katex";
+import ArrayParameter from "./ArrayParameter";
 
 const InputParameter = ({
   name,
@@ -11,7 +12,8 @@ const InputParameter = ({
   type,
   placeholder,
   value,
-  onChange,
+  setValue,
+  isArray,
 }) => {
   return (
     <div className={styles["form-control"]}>
@@ -24,14 +26,27 @@ const InputParameter = ({
           Array.isArray(blockmath) &&
           blockmath.map((math) => <BlockMath math={math} />)}
       </label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
+      {!isArray ? (
+        <input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      ) : (
+        <ArrayParameter
+          arrayState={value}
+          setArrayState={setValue}
+          placeholder={placeholder}
+          type={type}
+        />
+      )}
     </div>
   );
+};
+
+InputParameter.defaultProps = {
+  isArray: false,
 };
 
 export default InputParameter;

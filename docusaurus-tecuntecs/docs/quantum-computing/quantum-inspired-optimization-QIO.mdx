@@ -98,6 +98,78 @@ Alidaee et al. (2005) recast the problem as a QUBO problem. Their approach accom
 For more information, review the [TecunTecs API Docs](https://api.tecuntecs.com/api-docs/) 
 and check the [`/optimize-qio/number-partition`](https://api.tecuntecs.com/api-docs/#/Stretch%20Goal%3A%20Quantum-inspired%20Optimization/post_optimize_qio_number_partition) route.
 
+### Programmatic HTTP Call
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
+```js
+// Node.js
+const fetch = require("node-fetch");
+
+const optimizeNumberPartitionQIO = async (parameterSet) => {
+  const res = await fetch(
+    "https://api.tecuntecs.com/optimize-qio/number-partition",
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(parameterSet),
+    }
+  );
+
+  const data = res.json();
+  return data;
+};
+
+optimizeNumberPartitionQIO({
+  partition_weights: [1, 5, 9, 21, 35, 5, 3, 5, 10, 11],
+}).then((result) => console.log(result));
+
+//Output
+// {
+//   description: 'Partition results (quantum-inspired optimization)).',
+//   result: [ [ 5, 35, 5, 3, 5 ], [ 1, 9, 21, 10, 11 ] ]
+// }
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```py
+import requests
+parameterSet = {
+  "partition_weights": [1, 5, 9, 21, 35, 5, 3, 5, 10, 11],
+}
+r = requests.post('https://api.tecuntecs.com/optimize-qio/number-partition',
+                    json = parameterSet)
+print(r.json())
+
+# Output
+# {'description': 'Partition results (quantum-inspired optimization)).', 'result': [[5, 35, 5, 3, 5], [1, 9, 21, 10, 11]]}
+```
+
+</TabItem>
+</Tabs>
+
+### Interactive Interface
+
+import Calculator from '../../src/components/Calculator/Calculator'
+import {optimizeNumberPartitionQIO, paramInfo, ResultContainer} from './quantum-inspired-optimization-QIO.js';
+
+<Calculator 
+    title="Number Partition Optimizer"
+    onCalculate={optimizeNumberPartitionQIO}
+    paramInfo={paramInfo}
+    resultComponent={ResultContainer}
+    
+/>
+
 
 
 ## References

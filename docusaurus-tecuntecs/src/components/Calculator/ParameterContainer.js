@@ -4,6 +4,7 @@ import styles from "./Calculator.module.css";
 import "katex/dist/katex.min.css";
 import { InlineMath, BlockMath } from "react-katex";
 import InputParameter from "./InputParameter";
+import ArrayParameter from "./ArrayParameter";
 
 const ParameterContainer = ({ onCalculate, paramInfo, result, setResult }) => {
   let paramDict = {};
@@ -17,17 +18,17 @@ const ParameterContainer = ({ onCalculate, paramInfo, result, setResult }) => {
   //   return () => clearInterval(intervalID);
   // }, []);
 
-  console.log(paramInfo);
+  // console.log(paramInfo);
   paramInfo.forEach((info) => {
     // console.log(`This is a child ${child.key}`);
     // console.log(child.props.placeholder);
     const [param, setParam] = useState(info.placeholder);
-    console.log("before", paramDict);
+    // console.log("before", paramDict);
     paramDict[info.name] = param;
     setParamDict[info.name] = setParam;
-    console.log("after", paramDict);
-    console.log(setParamDict);
-    console.log("blockmath", info.blockmath);
+    // console.log("after", paramDict);
+    // console.log(setParamDict);
+    // console.log("blockmath", info.blockmath);
     // child.value={param};
     // child.onChange = (e) => setParam(e.target.value)
   });
@@ -45,6 +46,7 @@ const ParameterContainer = ({ onCalculate, paramInfo, result, setResult }) => {
     e.preventDefault();
     setSimulationIsRunning(true);
     // const result = await onCalculate({ f, a, b, n, method });
+    console.log("paramDict", paramDict);
     const result = await onCalculate(paramDict);
     setResult(result);
     setSimulationIsRunning(false);
@@ -61,7 +63,8 @@ const ParameterContainer = ({ onCalculate, paramInfo, result, setResult }) => {
           type={info.type}
           placeholder={info.placeholder}
           value={paramDict[info.name]}
-          onChange={(e) => setParamDict[info.name](e.target.value)}
+          setValue={setParamDict[info.name]}
+          isArray={info.isArray}
         />
       ))}
       <input
