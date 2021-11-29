@@ -1,0 +1,239 @@
+---
+sidebar_position: 1
+---
+
+# Energy Management
+
+## Power flows in a static network
+
+### Model description
+
+[Moehle et al. (2019)](https://arxiv.org/abs/1903.06230) present a mathematical model 
+for a spatial distribution of generators and loads in a network. 
+The basic idea is that you may want to plan the operation of the generators, but only after 
+considering how the power flows through the network into the loads.
+
+Insert graphic here
+
+Capturing the idea of spatial phenomena is a very good idea: You may want to consider how the 
+price of power can vary at different locations on a network, e.g., power is typically cheaper 
+close to cheap generators, and more expensive close to loads 
+(transmission may be sometimes difficult) (Moehle et al., 2019).
+
+So, consider power flows across a network that are constant over time (in real life, imagine you are working over an interval such as one hour). This necessarily implies that any power can be converted to energy by multiplying it by time.
+
+According to Moehle et al. (2019), the model consists of **three abstractions**:
+
+<!-- $$
+\text{1. Devices}
+$$
+
+$$
+\text{2. Terminals}
+$$
+
+$$
+\text{3. Nets}
+$$ -->
+
+1. ** Devices:** Produce, consume, and transfer power.
+2. **Terminals:** Each device has one or more terminals. Power can flow in either direction in such terminals.
+3. **Nets:** Exchange power between terminals.
+
+Altogether, the three abstractions constitute the (static) **network model**, _a collection of devices and nets that connects each terminal of each device to one of the nets_.
+
+There are important properties associated to the model by Moehle et al. (2019):
+
+- **Total cost**: The sum of the costs of all devices.
+- **Feasibility**: The set of terminal powers is _feasible_ if the cost is finite and if power conservation holds at each net.
+- **Optimality:** The set of terminal powers is _optimal_ if it is not only feasible but also minimizes the total cost.
+
+### Mathematical representation
+
+**Let's do math!** (As always, this is easier than it looks...)
+
+Based on Moehle et al. (2019):
+
+- There are $D$ devices (indexed as $d=1,...,D$).
+  - Device $d$ has $M_d$ terminals, and there are $M$ terminals in total
+    $$
+    \sum^D_{d=1} M_d = M
+    $$
+- Terminals are indexed as $m=1,...,M$ (_global ordering_).
+- The set of all terminal powers is represented as a vector $p\in \mathbf{R}^M$ with $p_m$ as the power flow on terminal $m$ (_global power vector_).
+- The $M_d$ terminal powers of a device $d$ are denoted $p_d \in \mathbf{R}^{M_d}$.
+:::caution
+  - This is an abuse of notation by Moehle et al. (2019) because $p_m$ had already been used to represent a scalar (not a vector).
+  - What is crucial is the notion, what the concepts in the problem are: $p_m$ is used for a specific power flow in the global power vector; $p_d$ is an abuse of notation to represent all the power flows of the terminals in a device.
+:::caution
+:::info
+  - We may say that $p_m$ "thinks" of _a power flow_ (a scalar) with respect to the _entire network_, whereas $p_d$ "thinks" of _the power flows_ (a vector) with respect to a _specific device_.
+    - The real resemblance, then, is between $p$ (global power vector) and $p_d$ (device power vector), not between $p_m$ (specific flow in global power vector, which is a scalar) and $p_d$.
+:::info
+- The scalar $(p_d)_i$ is the power on terminal $i$ of device $d$.
+  - The order of terminals on a multi-terminal device is the _local ordering_.
+    - For a single-termminal device, $p_d$ would be just a real number (not a vector of real numbers).
+
+Math helps the purpose of precision, but let's try to visualize the concepts for the purpose of understanding:
+
+![PowerFlowsDiagram](/img/PowerFlowsDiagram.png)
+**Figure 1:** Network model diagram. Adapted from Moehle et al. (2019).
+- As you may have realized already, each device power vector $p_d$ necessarily consists of a subvector or selection from the entries of the global power vector $p$.
+  - This may be expressed as
+
+    $$
+        p_d = B_d p
+    $$
+
+    where $B_d$ is the matrix that maps the global terminal ordering into the terminal ordering for device $d$. These matrices have the form
+
+    $$
+    (B_d)_{ij} = \begin{cases}
+        1 & \text{(global) terminal j is the ith (local) terminal of device d} \\
+        0 & \text{otherwise.}\\
+    \end{cases}
+    $$
+
+    - This means that you have as many columns as terminals in the network, and as many rows as the maximum amount of terminals per device. For example, the global-local matrix of the fifth device (line 3) is:
+
+    $$
+    B_5 = \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0
+    \end{bmatrix}
+    $$
+
+    $$
+    p_{d=5} = B_5 p = \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+    \textcolor{teal}{p_1} \\
+    \textcolor{teal}{p_2} \\
+    \textcolor{teal}{p_3} \\
+    \textcolor{teal}{p_4} \\
+    \textcolor{teal}{p_5} \\
+    \textcolor{teal}{p_6} \\
+    \textcolor{teal}{p_7} \\
+    \textcolor{teal}{p_8} \\
+    \textcolor{teal}{p_9} \\
+    \textcolor{teal}{p_{10}} \\
+    \end{bmatrix}
+    =
+
+    \begin{bmatrix}
+    \textcolor{teal}{p_7}  \\
+    \textcolor{teal}{p_8}
+    \end{bmatrix}
+    $$
+
+    - This is why $B_d$ is referred to as the _global-local matrix_ (because it maps the global power vector into the local device terminal powers).
+      - For a single-terminal device, $B_d$ is a row vector, $e_k^T$, where $e_k$ is the $k$th standard unit vector (i.e., a vector, with as many dimensions as terminals, filled mostly with zeros with only one single 1 in the $k$th position), and $k$ is the global ordering _index of the terminal_.
+
+:::note
+Okay, that's already a lot of math to keep in mind just to understand the model and the notation that is used to communicate it. We already covered the most important regarding the model definition, so you may want to go for a coffee and take a 5-minute break before we continue defining a few additional properties and characteristics of the model mathematically.
+:::note
+
+Let's continue:
+
+- The cost function for device $d$ is given by $f_d: \mathbf{R}^{M_d} \rightarrow \mathbf{R}\cup \{\infty\}$
+
+$$
+f_d(p_d) = f_d(B_d p)
+$$
+
+(i.e., the cost of all power flows in the terminals of a specific device is a real-valued function of the vector of power flows, unless the function feels like returning infinity because it's too damn expensive.)
+
+- The $N$ nets are labeled $n=1,...,N$.
+  - Like with devices that have $M_d$ terminals, we may say that net $n$ contains $M_n$ terminals.
+  - Like with devices that have $p_d$ power flows in their terminals, we denote by $p_n$ the vector of powers corresponding to the terminals in the net $n$ (following also the global ordering).
+  - Because each terminal appears in exactly one net, it follows that
+    $$
+    \sum_{n=1}^N M_n = M
+    $$
+  - Hopefully you already noticed the abuse of notation by Moehle et al. (2019): 
+:::caution
+  $M_d$ is the number of terminals of device $d$, whereas $M_n$ is the number of terminals in net $n$. Don't worry, it's not too bad if we know well the concept behind the notation. Still, we'll try to use, for example, $M_{d=1}$ (for the number of terminals of device $1$) and $M_{n=1}$ (for the number of terminals of net $1$) to avoid confusion, but you should always appreciate the meaning from the context.
+:::
+:::tip A healthy reminder never hurts:
+$p_m$ is the (scalar) power flow on (global) terminal $m$, whereas $p_d$ is the vector of power flows for device $d$. The power flow on (local) terminal $i$ on device $d$ is $(p_d)_i$.
+:::
+
+- The terminals in each net can be described by an [_adjacency matrix_](https://en.wikipedia.org/wiki/Adjacency_matrix) $A\in \mathbf{R}^{N\times M}$ (this makes sense, because nets connect one or more terminals, and relationships between nodes—a graph—can be represented with an adjacency matrix; obviously, we don't need the information about devices so, in a way, we speak of a different graph from the one of the diagram), defined as
+
+  $$
+  A_{nm} = \begin{cases}
+      1 & \text{terminal m is connected to net n} \\
+      0 & \text{otherwise.}\\
+  \end{cases}
+  $$
+
+  - For example, here is the adjacency matrix $A$ from the example in the diagram. Each **column of $A$** is a unit vector corresponding to a **terminal**; each **row of $A$** corresponds to a **net**, and consists of a row vector with **entries $1$ and $0$ indicating which nets are adjacent to it**. (What is interesting is that we are, abstractly, thinking about a very special graph that separates nodes into two sets: a [bipartite graph](https://en.wikipedia.org/wiki/Bipartite_graph).)
+
+    $$
+    A = \begin{bmatrix}
+    1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1
+    \end{bmatrix}
+    $$
+
+    (It is assumed that every net has at least one adjacent terminal, so every unit vector appears among the columns of $A$ implying that it is full rank.)
+
+  - The $n$-vector $Ap$ provides the net power flow that goes out of each net.
+  - The number $(Ap)_n$ is the net power flow of an specific net.
+  - Intuitively, conservation of power at the nets may be expressed as
+
+    $$
+    Ap = \mathbf{0}
+    $$
+
+    which are $n$ equalities
+
+    $$
+    \begin{bmatrix}
+    1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+    \textcolor{teal}{p_1} \\
+    \textcolor{teal}{p_2} \\
+    \textcolor{teal}{p_3} \\
+    \textcolor{teal}{p_4} \\
+    \textcolor{teal}{p_5} \\
+    \textcolor{teal}{p_6} \\
+    \textcolor{teal}{p_7} \\
+    \textcolor{teal}{p_8} \\
+    \textcolor{teal}{p_9} \\
+    \textcolor{teal}{p_{10}} \\
+    \end{bmatrix}
+    = \mathbf{0}
+
+    \Rightarrow
+
+    \begin{matrix}
+    \textcolor{teal}{p_1} + \textcolor{teal}{p_2} + \textcolor{teal}{p_3} + \textcolor{teal}{p_4} = 0\\
+    \textcolor{teal}{p_5} + \textcolor{teal}{p_7} + \textcolor{teal}{p_9} = 0\\
+    \textcolor{teal}{p_6} + \textcolor{teal}{p_8} + \textcolor{teal}{p_{10}} = 0
+    \end{matrix}
+    $$
+
+- The total cost of the network maps the global power vector $p$ to the (scalar) cost, i.e., $f: \mathbf{R}^M \rightarrow \mathbf{R}$.
+
+  - It is the sum of all device costs in the network:
+    $$
+    f(p) = \sum_{d=1}^D f_d(p_d) = \sum_{d=1}^D f_d(B_d p)
+    $$
+
+- **A power flow vector $p$ is _feasible_ if $Ap = 0$ and $f(p) < \infty$.**
+
+- **A power flow is _optimal_ if it is feasible, and has smallest cost among all feasible power flows.**
+
+## TecunTecs API
+
+## References
+
+Moehle, N., Busseti, E., Boyd, S., & Wytock, M. (2019). _Dynamic Energy Management In Large Scale Optimization in Supply Chains and Smart Manufacturing_. (pp. 69-126). Springer, Cham. 
+Retrieved from https://arxiv.org/abs/1903.06230
