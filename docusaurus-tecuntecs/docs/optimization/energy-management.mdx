@@ -233,6 +233,90 @@ $p_m$ is the (scalar) power flow on (global) terminal $m$, whereas $p_d$ is the 
 
 ## TecunTecs API
 
+For more information, review the [TecunTecs API Docs](https://api.tecuntecs.com/api-docs/) and check the `/optimize-energy-management/static-network` route.
+
+
+### Live Editor
+
+```jsx live
+function OptimizeStaticNetwork(props) {
+  const bodyJSON = {
+        loads: [
+          { name: "load1", power: 50 },
+          { name: "load2", power: 100 },
+        ],
+        generators: [
+          { name: "gen1", power_max: 1000, alpha: 0.02, beta: 30 },
+          { name: "gen2", power_max: 100, alpha: 0.2, beta: 0 },
+        ],
+        lines: [
+          { name: "line1", power_max: 50 },
+          { name: "line2", power_max: 10 },
+          { name: "line3", power_max: 50 },
+        ],
+        nets: [
+          {
+            name: "net1",
+            terminals: [
+              { device: "load1", terminal: 0 },
+              { device: "gen1", terminal: 0 },
+              { device: "line1", terminal: 0 },
+              { device: "line2", terminal: 0 },
+            ],
+          },
+          {
+            name: "net2",
+            terminals: [
+              { device: "load2", terminal: 0 },
+              { device: "line1", terminal: 1 },
+              { device: "line3", terminal: 0 },
+            ],
+          },
+          {
+            name: "net3",
+            terminals: [
+              { device: "gen2", terminal: 0 },
+              { device: "line2", terminal: 1 },
+              { device: "line3", terminal: 1 },
+            ],
+          },
+        ],
+      };
+
+  
+    const [result, setResult] = useState("")
+    const callApi = () => {
+        setResult("Calling API");
+        fetch("https://api.tecuntecs.com/optimize-energy-management/static-network", 
+        {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                
+            },
+            body: JSON.stringify(bodyJSON)
+        })
+        .then(res => res.json())
+        .then((data)=>{
+          console.log(JSON.stringify(data));
+          setResult(data.result);
+        }, (error)=>{
+          setResult(error);
+        }).catch(error=>console.log(error));
+    }
+    
+
+  return (
+    <div>
+      <button style={{ borderRadius: 20, padding: 10}} 
+      onClick={callApi}>Call API</button>
+      <p>{result}</p>
+    </div>
+  );
+}
+```
+
+
 ## References
 
 Moehle, N., Busseti, E., Boyd, S., & Wytock, M. (2019). _Dynamic Energy Management In Large Scale Optimization in Supply Chains and Smart Manufacturing_. (pp. 69-126). Springer, Cham. 
