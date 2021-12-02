@@ -1,0 +1,163 @@
+---
+sidebar_position: 1
+---
+
+# Beam Calculator
+
+Esto es lo que necesito!
+https://youtu.be/EGtgaiNdmOA
+
+## Introduction to Beams
+
+If you are new to beams, we recommend this Khan Academy video explaining the common "I-shape" of a beam. 
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JuyorN_1cIY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zSz0kV0BPDY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+## Beam Design in 10 Steps
+
+When it comes to the design of beams, there are a few key steps:
+
+#### 1. **Assume a beam section (also called "pre-dimensioning")**
+$$
+b \hspace{0.5cm} \text{width of the beam base}
+$$
+
+$$
+h \hspace{0.5cm} \text{beam height}
+$$
+
+The effective depth of the beam will be determined by
+
+$$
+h - c_{e} = d \hspace{0.5cm} \text{effective height (or depth)}
+$$
+
+
+where $c_e$ is the effective cover of the beam, which is equal to
+the nominal cover $c_n$ plus half of the diameter ($\text{dia}$)
+of the main reinforcement of the beam.
+
+$$
+c_n + \frac{1}{2}\text{dia} = c_{e} \hspace{0.5cm} \text{effective cover}
+$$
+
+
+$$
+c_{n} \hspace{0.5cm} \text{nominal cover}
+$$
+
+https://youtu.be/j5ediMZ71RA
+
+https://www.youtube.com/watch?v=qtOOHX-z2RY
+
+Excellent resource
+https://civilsir.com/effective-depth-of-beam/
+
+length
+https://www.youtube.com/watch?v=ofg1VNssvWQ
+
+
+#### 2. Consider the loads on beam.
+#### 3. Assume (or determine) the bending moment.
+
+$$
+M \hspace{0.5cm} \text{bending moment}
+$$
+
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/C-FEVzI8oe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+https://www.youtube.com/watch?v=f08Y39UiC-o
+
+#### 4. Calculate the area of steel required
+
+The area of steel $A_s$ will determine the number of steel bars required.
+
+$$
+A_s = 0.85 \frac{M}{\phi f'_y (d - \frac{a}{2})} \hspace{0.5cm} a = \frac{A_s \times f_y}{0.85 (f'_c \times b)}
+
+$$
+
+$$
+$$
+
+$$
+A_s = 0.85 b d \frac{F_c}{F_y} - \sqrt{(0.85 b d \frac{F_c}{F_y})^2 - 1.888889 M (100) F_c \frac{b}{F_y^2}}
+$$
+
+
+http://recursosbiblio.url.edu.gt/publicjlg/biblio_sin_paredes/fac_arqui/dis_simpli_estruc/08.pdf
+
+#### 5. Determine the shear force diagram.
+#### 6. Design the stirrups diamater and spacing.
+#### 7. Check the deflection criteria.
+#### 8. Check for the torsional stresses.
+#### 9. To revise the section and steel requirement if needed.
+#### 10. To carry out the detailing.
+
+**Calculate the area of steel for beam section**
+
+## Data
+
+
+
+
+## Calculations
+
+### Effective covering
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mwJmNkcvt3I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+$$
+d = h - c
+$$
+
+### Area of steel $[\text{cm}^2]$
+
+$$
+A_s = 0.85 b d \frac{F_c}{F_y} - \sqrt{(0.85 b d \frac{F_c}{F_y})^2 - 1.888889 M (100) F_c \frac{b}{F_y^2}}
+$$
+
+$$
+A_{s\text{min}}=\frac{14.1}{F_y b h}
+$$
+
+$$
+A_{s\text{max}}=\frac{0.5}{P_{bal} b d} \hspace{0.5cm} P_{bal} = 0.85 \frac{F_c}{F_y} \left( \frac{6000}{6000+F_y}\right) 0.75
+$$
+
+
+import Calculator from '../../src/components/Calculator/Calculator'
+import {calculateBeam, paramInfo, ResultContainer} from './beam-calculator.js';
+
+<div style={{textAlign: 'center'}}>
+
+![Beam Diagram](/img/Beam-Diagram.png)
+
+</div>
+
+<Calculator 
+    title="Beam calculator" 
+    onCalculate={calculateBeam} 
+    paramInfo={paramInfo} 
+    resultComponent={ResultContainer} 
+/>
+
+
+## References
+
+
+import FrillEmbeddedWidget from '../../src/components/FrillEmbeddedWidget'
+
+<FrillEmbeddedWidget />

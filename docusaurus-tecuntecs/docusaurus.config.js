@@ -52,6 +52,19 @@ const katex = require("rehype-katex");
           path: "docs-industry",
           routeBasePath: "docs-industry",
           sidebarPath: require.resolve("./sidebars.js"),
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
+        },
+      ],
+      [
+        "@docusaurus/plugin-content-docs",
+        {
+          id: "docs-advanced",
+          path: "docs-advanced",
+          routeBasePath: "docs-advanced",
+          sidebarPath: require.resolve("./sidebars.js"),
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
         },
       ],
     ],
@@ -73,6 +86,12 @@ const katex = require("rehype-katex");
             src: "img/TecunTecs-Logo.png",
           },
           items: [
+            {
+              to: "/docs-advanced/intro",
+              position: "left",
+              label: "Advanced Solutions",
+              activeBaseRegex: `/docs-advanced/`,
+            },
             {
               type: "doc",
               docId: "intro",
