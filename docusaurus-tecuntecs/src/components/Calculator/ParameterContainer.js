@@ -49,6 +49,7 @@ const ParameterContainer = ({ onCalculate, paramInfo, result, setResult }) => {
     console.log("paramDict", paramDict);
     const result = await onCalculate(paramDict);
     setResult(result);
+    console.log("result", result);
     setSimulationIsRunning(false);
   };
 
