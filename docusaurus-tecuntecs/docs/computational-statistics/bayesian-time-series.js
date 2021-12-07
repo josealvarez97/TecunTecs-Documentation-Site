@@ -1,10 +1,22 @@
 import React from "react";
+// import ReactJson from "react-json-view";
+// import BrowserOnly from "@docusaurus/BrowserOnly";
+import { JsonView, darkStyles, defaultStyles } from "react-json-view-lite";
+import "react-json-view-lite/dist/index.css";
 
 // a page parameter would be very powerful to separate
 // parameters by page. some could be group in one page,
 // and others such as the lists should have their own page
 // in a carousel.
 const paramInfo = [
+  {
+    name: "dataset",
+    description:
+      "URL linking time-series cross-sectional data in csv format. (Learn to make your raw csv files available online https://youtu.be/jDaWna1IRmY.) ",
+    type: " text",
+    placeholder:
+      "https://storage.googleapis.com/tcp-uniform-storage-bucket/simdata-bpCausal-PangEtAl2021.csv",
+  },
   {
     name: "index",
     description: "Names for unit and time index",
@@ -155,14 +167,31 @@ const ResultContainer = ({ result }) => {
   return (
     <div>
       <h2>Result:</h2>
-      <p>{false && JSON.stringify(result)}</p>
       {"resultsZip" in result && (
         <p>
           Results ZIP File: <a href={result.resultsZip}>{result.resultsZip}</a>
         </p>
       )}
+      {"ATT.png" in result && <img src={result["ATT.png"]} />}
+      {"resultsZip" in result && (
+        <JsonView
+          data={result}
+          shouldInitiallyExpand={(level) => true}
+          style={darkStyles}
+        />
+      )}
     </div>
   );
 };
+
+// {"resultsZip" in result && (
+//   <BrowserOnly fallback={<div>Loading...</div>}>
+//     {() => {
+//       // const ReactJson = require("react-json-view").ReactJson;
+//       // return <ReactJson name={false} src={result} theme="monokai" />;
+//       return <p>test</p>;
+//     }}
+//   </BrowserOnly>
+// )}
 
 export { estimateEffectBPCausal, paramInfo, ResultContainer };
