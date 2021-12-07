@@ -4,6 +4,8 @@ import "katex/dist/katex.min.css";
 import { InlineMath, BlockMath } from "react-katex";
 import ArrayParameter from "./ArrayParameter";
 
+const CheckboxParameter = (props) => {};
+
 const InputParameter = ({
   name,
   description,
@@ -14,9 +16,16 @@ const InputParameter = ({
   value,
   setValue,
   isArray,
+  checked,
 }) => {
   return (
-    <div className={styles["form-control"]}>
+    <div
+      className={
+        type != "checkbox"
+          ? styles["form-control"]
+          : styles["form-control-check"]
+      }
+    >
       <label>
         <code>{name}</code>: {description}
         {blockmath && !Array.isArray(blockmath) && (
@@ -26,12 +35,21 @@ const InputParameter = ({
           Array.isArray(blockmath) &&
           blockmath.map((math) => <BlockMath math={math} />)}
       </label>
+      {/*Potentially better way to handle input change https://reactjs.org/docs/forms.html */}
+
       {!isArray ? (
         <input
           type={type}
           placeholder={placeholder}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={
+            type === "checkbox"
+              ? (e) => setValue(e.target.checked)
+              : (e) => setValue(e.target.value)
+          }
+          id={name}
+          name={name}
+          checked={value}
         />
       ) : (
         <ArrayParameter

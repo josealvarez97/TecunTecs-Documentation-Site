@@ -1,0 +1,166 @@
+---
+sidebar_position: 1
+---
+
+# Bayesian Time Series
+
+:::info What is "cross-sectional" data?
+
+It's a type of data collected by observing many subjects at one point in time.
+
+:::
+
+:::info What is "time series" data?
+
+It's a series of data points indexed in time order.
+:::
+
+:::tip What are examples of time-series cross-sectional data?
+
+Classical examples of time-series cross-sectional data are the rate of 
+unemployment, percentage of obesity, 
+or GDP of a country indexed by year.
+
+:::
+
+
+## A Bayesian Alternative to the Synthetic Control Method
+
+Pang et al. (2021) published an R package for Bayesian causal inference with 
+time-series cross-sectional data. What this means is that they have come up 
+with a Bayesian alternative to the popular
+synthetic control method for comparative case studies.
+
+Pang et al. (2021) are still developing the `bpCausal` R package, 
+but the TecunTecs API aims to provide you with an stable interface that
+you can easily leverage on any programming language of your choice.
+
+### What do you need to get started with time-series cross-sectional data analaysis?
+
+Getting started with time-series data analysis is not as hard as most research
+papers make it seem. You really just need the right type of data, and a 
+machine that will deliver you the results which you have to interpret later. (Usually
+the hardest part is to develop the methods that the machine will use, but researchers
+are good at that and our job at TecunTecs is to make it easy to use them.)
+
+Here's a list of the requirements your time-series data must satistfy: 
+
+* **Do you have a time-series, i.e., a list of data points indexed by time?** Usually
+this is represented as the rows in a data matrix, with one column indexing the 
+corresponding point in time. It is also common practice to have another column
+representing a unique ID for every unit.
+* **Is your data cross-sectional? In other words, are you "tracking" at least one 
+specific variable of a large population throughout time (e.g., GDP of a country)?**
+This should be the variable(s) for which you aim to estimate the (average) causal effect of 
+the treatment on the treated (ATT). These are also called the "outcome variables."
+* **Do you have a treatment indicator for your units?** Usually this is one column of 
+the data matrix allowing two possible values, one for the control units and other 
+for the treated units.
+* **Have you identified the relevant covariates?** Make sure you're not comparing apples
+to bananas. For example, if you want to estimate the effect of a specific 
+new tax regulation on GDP, 
+you probably should be careful about comparing the 
+United States to Guatemala (or many countries like Guatemala and viceversa),
+at least directly. 
+Perhaps you would like to adjust by other things such
+as the rate of crime, education levels, wealth, population size, etc. 
+A covariate is any potentially
+confounding variable you want to control for. 
+They are usually represented as a set of 
+columns in your data matrix.
+
+:::note what's the gist of the popular synthetic control method?
+
+What would you do if you want to estimate the effect of 
+reunification on West Germany? 
+This is a tough question because we don't get to see a parallel 
+universe in which the Berlin Wall never fell down. Abadie et al. (2015)
+studied the 
+problem by producing a "synthetic" West Germany, which is a weighted average
+of a list of neighboring countries produced based on the similarity 
+of their covariates to West Germany.
+
+:::
+
+If you answered positively to the previous questions, your data should be mostly
+ready for time-series cross-sectional analysis. There may be other parameters
+that different methodologies may require when you input everything into the 
+"machine," but chances are you don't need to take more real-world measurements.
+
+## How to use bpCausal?
+
+`bpCausal` is the R package developed by Pang et al. (2021). The TecunTecs API 
+offers an easy-to-use interface to leverage the power of this package more easily.
+Thus, the minimum theoretical concepts you must know are necessarily the same.
+
+`bpCausal` is based on a potentially ugly-looking mathematical model, but 
+it really isn't as bad as it seems. The following linear model describes
+the parameters used by `bpCausal`:
+
+$$
+y_{it} = \delta_{it} D_{it} + X_{it}^{\prime}\beta + Z_{it}^{\prime}\alpha_i 
++ A_{it}^{\prime}\Xi_t + \Gamma_i^{\prime}f_t + \varepsilon_{it}
+$$
+
+It is just another linear model. What is important is to understand what the 
+factors mean.
+
+- **First term:** ($D_{it}$) is just the binary treatment indicator. As we said, 
+this should be a column in your data matrix allowing only two possible values.
+($\delta_{it}$) is more interesting; it represents the heterogeneous treatment 
+effect. 
+- **Second, third, and fourth term:** ($X_{it}$), ($Z_{it}$) and ($A_{it}$) are 
+vectors of covariates that have constant, unit-level random and time-level 
+random effects on the outcome, respectively. 
+Pang et al. (2021) assume the random effects to have zero mean, and note that there 
+can be overlapping among ($X_{it}$), ($Z_{it}$) and ($A_{it}$) 
+if some covarites have both constant and random effects.
+- **Fifth term:**
+- **Sixth term:** This is just a formality, the unknown error term $\epsilon_{it}$. 
+You obviously 
+don't know this and that's the whole point. Get rid of this guy and place the $\approx$
+symbol instead of $=$, that is what you're really doing.
+
+We welcome you to review the paper by Pang et al. (2021) for more information 
+about these parameters.
+
+The rest of the parameters you need to know to use `bpCausal` are easier.
+Please refer to the `bpCausal` GitHub repository by Pang et al. (2021) 
+for more information.
+
+## TecunTecs API
+
+For more information, review the [TecunTecs API Docs](https://api.tecuntecs.com/api-docs/) 
+and check the `/estimate-effect/bpCausal` route.
+
+### Interactive interface
+
+import Calculator from '../../src/components/Calculator/Calculator'
+import {estimateEffectBPCausal, paramInfo, ResultContainer} from './bayesian-time-series.js';
+
+<Calculator 
+    title="Bayesian Time Series Estimator"
+    onCalculate={estimateEffectBPCausal}
+    paramInfo={paramInfo}
+    resultComponent={ResultContainer}
+    
+/>
+
+
+
+
+## References
+
+Pang, Xun and Liu, Licheng and Xu, Yiqing, 
+_A Bayesian Alternative to Synthetic Control for Comparative Case Studies_ 
+(February 25, 2021). 
+Available at SSRN: https://ssrn.com/abstract=3649226 
+or http://dx.doi.org/10.2139/ssrn.3649226
+
+Abadie, A., Diamond, A., & Hainmueller, J. (2015). 
+Comparative politics and the synthetic control method. 
+_American Journal of Political Science_, 59(2), 495-510.
+
+import FrillEmbeddedWidget from '../../src/components/FrillEmbeddedWidget'
+
+<FrillEmbeddedWidget />

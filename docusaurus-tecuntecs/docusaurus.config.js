@@ -86,12 +86,12 @@ const katex = require("rehype-katex");
             src: "img/TecunTecs-Logo.png",
           },
           items: [
-            {
-              to: "/docs-advanced/intro",
-              position: "left",
-              label: "Advanced Solutions",
-              activeBaseRegex: `/docs-advanced/`,
-            },
+            // {
+            //   to: "/docs-advanced/intro",
+            //   position: "left",
+            //   label: "Advanced Solutions",
+            //   activeBaseRegex: `/docs-advanced/`,
+            // },
             {
               type: "doc",
               docId: "intro",
@@ -99,7 +99,7 @@ const katex = require("rehype-katex");
               label: "Solutions by Application",
             },
             {
-              to: "/docs-industry/intro",
+              to: "/docs-industry/civil-engineering/beam-calculator",
               position: "left",
               label: "Solutions by Industry",
               activeBaseRegex: `/docs-industry/`,
