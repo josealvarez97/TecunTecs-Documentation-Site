@@ -18,6 +18,12 @@ const InputParameter = ({
   isArray,
   checked,
 }) => {
+  const getHandleInputChangeFunction = () => {
+    if (type === "checkbox") return (e) => setValue(e.target.checked);
+    else if (type === "number")
+      return (e) => setValue(parseInt(e.target.value));
+    else return (e) => setValue(e.target.value);
+  };
   return (
     <div
       className={
@@ -42,11 +48,7 @@ const InputParameter = ({
           type={type}
           placeholder={placeholder}
           value={value}
-          onChange={
-            type === "checkbox"
-              ? (e) => setValue(e.target.checked)
-              : (e) => setValue(e.target.value)
-          }
+          onChange={getHandleInputChangeFunction()}
           id={name}
           name={name}
           checked={value}

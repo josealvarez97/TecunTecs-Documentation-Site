@@ -29,6 +29,7 @@
     "react-json-view": "^1.21.3",
     "react-json-view-lite": "^0.9.3",
     "react-katex": "^2.0.2",
+    "react-player": "^2.9.0",
     "react-script-tag": "^1.1.2",
     "react-scripts": "4.0.1",
     "rehype-katex": "^4.0.0",

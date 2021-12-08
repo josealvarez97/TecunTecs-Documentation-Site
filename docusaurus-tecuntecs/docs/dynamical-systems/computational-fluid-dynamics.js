@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { JsonView, darkStyles, defaultStyles } from "react-json-view-lite";
+import "react-json-view-lite/dist/index.css";
+import ReactPlayer from "react-player";
 
 const paramInfo = [
   {
@@ -19,13 +22,13 @@ const paramInfo = [
     name: "nt",
     description: "Number of steps.",
     type: "number",
-    placeholder: 100,
+    placeholder: 10,
   },
 ];
 
 const solveCavityFlow2D = async (parameterSet) => {
   console.log("solveCavityFlow2D()");
-  console.log(JSON.stringify(parameterSet));
+  console.log("parameterSet for cavity flow", JSON.stringify(parameterSet));
 
   const res = await fetch(
     "https://api.tecuntecs.com/solve-cfd/cavity-flow-2d",
@@ -53,7 +56,27 @@ const ResultContainer = ({ result }) => {
           Results ZIP File: <a href={result.resultsZip}>{result.resultsZip}</a>
         </p>
       )}
-      {"resultsPng" in result && <img src={result.resultsPng} />}
+      {"FluidFlowAnimation.mp4" in result && (
+        <ReactPlayer
+          className="react-player fixed-bottom"
+          url={result["FluidFlowAnimation.mp4"]}
+          width="100%"
+          height="100%"
+          controls={true}
+          playbackRate={0.25}
+          loop={true}
+          muted={true}
+          playing={true}
+        />
+      )}
+      {"cavity_flow.png" in result && <img src={result["cavity_flow.png"]} />}
+      {"resultsZip" in result && (
+        <JsonView
+          data={result}
+          shouldInitiallyExpand={(level) => true}
+          style={darkStyles}
+        />
+      )}
     </div>
   );
 };
