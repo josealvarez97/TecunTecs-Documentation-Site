@@ -19,10 +19,17 @@ const paramInfo = [
     placeholder: 0.1,
   },
   {
+    name: "u_top",
+    description: "Velocity of the lid boundary.",
+    blockmath: "u_{top}\\text{: lid velocity}",
+    type: "number",
+    placeholder: 8,
+  },
+  {
     name: "nt",
     description: "Number of steps.",
     type: "number",
-    placeholder: 10,
+    placeholder: 100,
   },
 ];
 

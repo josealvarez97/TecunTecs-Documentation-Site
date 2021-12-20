@@ -145,7 +145,8 @@ parameterSet = {
   "Mt": 20,
   "t_max": 1
 }
-r = requests.post('https://api.tecuntecs.com/solve-pde/heat-equation', json = parameterSet)
+r = requests.post('https://api.tecuntecs.com/solve-pde/heat-equation', 
+                    json = parameterSet)
 print(r.json())
 
 # Output
