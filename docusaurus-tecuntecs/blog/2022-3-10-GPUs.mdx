@@ -1,0 +1,36 @@
+---
+slug: cloud-gpu-gap
+title: The Cloud GPU Gap
+authors: [jose]
+tags: [GPUs, Gap Analysis]
+---
+
+There is a gap for servicing GPUs on the cloud (not to mention that there is also a gap to access cheap local GPU hardware). <!--truncate-->
+A quick Google Search looking for the phrase "serverless GPU" will quickly return the following results:
+
+- Sandbrink, J. (June, 2020). [_Searching the Clouds for Serverless GPU: An unfulfilled quest?_](https://towardsdatascience.com/searching-the-clouds-for-serverless-gpu-597b34c59d55). Towards Data Science.
+- Deleted user. (Feb, 2021). [_Serverless solutions for GPU inference (if there's such a thing)_](https://www.reddit.com/r/MachineLearning/comments/lpld92/d_serverless_solutions_for_gpu_inference_if/). Reddit.
+- Yang, R., Pemberton, N. Chung, J. (Fall, 2019). [_PyPlover: A System for GPU-enabled Serverless Instances_](https://people.eecs.berkeley.edu/~kubitron/courses/cs262a-F19/projects/reports/project9_report_ver5.pdf). CS262A, UC Berkeley.
+
+All of these resources either point out to the gap that exists for servicing "serverless GPUs," or they try to address a solution to manage the orchestration of GPU-enabled containers in the cloud. There is a quest to fill the gap by handling the orchestration of GPU-enabled containers for the user. As the popularity and demand of GPUs increases, this gap is likely be filled.
+
+However, I claim there is an important difference between the majority of users of traditional CPU-powered serverless functions and the increasing user-base of GPUs:
+
+- _**Software engineers**_ are the main users of CPU-powered serverless functions. Most of the time, they use them to facilitate microservice-oriented architectures.
+- _**Researchers and Data Scientists**_ are the main users of GPU-powered computations. Most of the time, they use them to efficiently simulate physical systems or accelerate data science tasks such as machine learning.
+
+It is crucial to understand that these users have different backgrounds, needs, and interests:
+
+| Software Engineer                                              | Researcher / Data Scientist                                             |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Higher chance of knowing how to use Docker containers          | Focus on mathematics and scientific computing, not software engineering |
+| Higher chance of having experience setting up cloud functions  | Focus on leveraging advanced algorithms, not building infrastructure    |
+| Gets paid for writing code in high-demand technological stacks | Gets paid for research insights, no matter what technology              |
+
+Therefore, I believe there is a further gap to fill. There is not just a need for serverless GPUs for those researchers and data scientists who happen to be technologically savvy, but also **_a necessity for a set of tools that makes it as easy as possible to arrive at the research insights directly, not matter how technologically savvy a scientist happens to be_**.
+
+This implies an element of instruction, and a service that goes from input to post processing of the output. A company that teaches what can be achieved through case studies, and makes it very easy to do so.
+
+\_
+
+GPU stands for _Graphics Processing Unit_. GPUs were [originally](https://www.intel.com/content/www/us/en/products/docs/processors/what-is-a-gpu.html) designed to accelerate the rendering of 3D graphics, but they have become more flexible and programmable. Today, GPUs are used not only for gaming, but also for machine learning and other computational engineering tasks.

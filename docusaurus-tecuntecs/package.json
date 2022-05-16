@@ -34,7 +34,8 @@
     "react-scripts": "4.0.1",
     "rehype-katex": "^4.0.0",
     "remark-math": "^3.0.1",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "yarn": "^1.22.17"
   },
   "browserslist": {
     "production": [

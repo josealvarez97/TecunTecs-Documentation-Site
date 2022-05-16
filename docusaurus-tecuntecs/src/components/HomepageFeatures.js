@@ -51,8 +51,7 @@ const FeatureList = [
     Svg: require("../../static/img/TecunTecs-Logo.svg").default,
     description: (
       <>
-        Synthetic control unit methods and genetic statistical matching as a
-        service.
+        Neural network based partial differential equation solvers as a service.
       </>
     ),
   },

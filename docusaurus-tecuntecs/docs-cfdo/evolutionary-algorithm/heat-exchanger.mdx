@@ -1,0 +1,42 @@
+---
+sidebar_position: 1
+---
+
+# Heat Exchanger
+
+Notes:
+
+A heat exchanger configuration is considered using the coupled solution of the flow/heat transfer processes.
+
+The aim of the procedure is to find the **positions of the tubes** most favorable to simultaneously **maximize heat exchange** while obtaining a **minimum pressure loss**.
+
+An Evolutioanry Algorithm (EA) is applied to find the optimal configurations.
+
+The computer package Opal is used to perform the optimization process.
+
+The EA relies on a large number of simulations which may result in a considerable computational effort.
+
+The procedure can be performed in parallel on a Linux PC-cluster to reduce user waiting time.
+
+The main goal of this work is to achieve cost-efficient design optimization problems involving complex flows with heat transfer or chemical reactions using Computational Fluid Dynamcis (CFD) codes for practical configurations, while keeping reasonable computing times.
+
+They can be used for multi-objective multi-parameter problems.
+
+They have been successfully tested in many practical
+cases, for example for design shape optimization in the aerospace
+[1, 24, 54, 55, 64] and automotive industry [61].
+
+The use of a fully automatic
+EA coupled with CFD for a multi-objective problem still remains limited by
+the computing time and is up to now far from being a practical tool for all
+engineering applications.
+
+why?
+
+## References
+
+Janiga, G. (2008). _A few illustrative examples of CFD-based optimization_. In _Optimization and Computational Fluid Dynamics_ (pp. 17-59). Springer, Berlin, Heidelberg.
+
+import FrillEmbeddedWidget from "../../src/components/FrillEmbeddedWidget";
+
+<FrillEmbeddedWidget />

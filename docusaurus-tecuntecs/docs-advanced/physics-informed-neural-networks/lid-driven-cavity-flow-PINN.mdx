@@ -1,0 +1,51 @@
+---
+sidebar_position: 2
+---
+
+# Lid Driven Cavity Flow
+
+Any physics simulation problem that is defined by differential equations demands information about the domain of the problem and its governing equations or boundary conditions.
+
+In the case of Physics Informed Neural Networks, the solvers will sample the points in the geometry into sub-sampled points on the boundaries (to satisfy the boundary conditions), and interior region points to minimize the loss function.
+
+## Case Setup
+
+### What do you need?
+
+- The geometry (or "point cloud")
+  - Nvidia Modulus' Constructive Solid Geometry (CSG) module
+  - STL module
+  - **Raw point cloud data from CSV file**/numpy arrays.
+- The boundary conditions
+- The network information
+
+## That's (almost) it!
+
+With all of the previous information, we can go ahead and use a solver to obtain the solution. TecunTecs enters the picture by providing you with a range of different options integrated into the same cloud-service, whether that's traditional numerical methods or Physics Informed Neural Networks.
+
+TecunTecs is powered by Nvidia's powerful Modulus library. In the following interface, you can try solving the LDC many types of geometry:
+
+2D:
+
+- Rectangle
+- Circle
+- Triangle
+- Infinite channel
+- Line
+
+3D:
+
+- Sphere
+- Constructive
+- Cuboid
+- Infinite channel
+- Plane
+- Cylinder
+- Torus
+- Tetrahedron
+- Triangular prism
+
+In the future, we will add support to construct more complex geometries based on these primitives by performing operations like add, subtract, and intersect.
+
+Define problem formulation
+Define solver setup
