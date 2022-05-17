@@ -1,0 +1,35 @@
+---
+sidebar_position: 1
+---
+
+# Ordinary Differential Equations
+
+An Ordinary Differential Equation (ODE) is nothing more than a differential equation with one independent variable.
+In Physics, that is often time, but it can be anything else.
+
+## Solving Ordinary Differential Equations
+
+The quintessential (numerical) method for solving an ODE is Euler's method. Not coincidentally, it also happens to be the
+most intuitive one. Let us illustrate this with the most "ordinary" ODE, a 1st-order ODE:
+
+$$
+\frac{dx}{dt} = f(t,x)
+$$
+
+Few things are nicer than a rate of change that depends upon the independent variable $t$ and the unkown function $x(t)$ (the dependent variable). If you have one single value of the function at a given time, you can calcullate how the function $x(t)$ will change at that instant. Recalling that an integral is nothing more than an accumulation of very small changes, if you do this a lot of times, you will get a good idea of the behavior of the unknown function $x(t)$.
+
+$$
+\int_a^b x'(t)dt \approx \left[ \frac{x_1 - x_0}{\Delta t} + \frac{x_2 - x_1}{\Delta t} + \cdot \cdot \cdot + \frac{x_n - x_{n-1}}{\Delta t} \right] \Delta t
+$$
+
+The previous expression is a good opportunity to appreciate the intuition behind the Fundamental Theorem of Calculus, for $x(b) - x(a)$ certainly corresponds to $x_n - x_0$.
+
+The insight, however, from the perspective of numerical methods, comes from realizing that if you don't know $x_n$, you can "get to it" by applying an algorithm like the one we learned in the previous section.
+
+## References
+
+Strang, G. (2014). _Differential equations and linear algebra_. Wellesley: Wellesley-Cambridge Press.
+
+import FrillEmbeddedWidget from "../../src/components/FrillEmbeddedWidget";
+
+<FrillEmbeddedWidget />

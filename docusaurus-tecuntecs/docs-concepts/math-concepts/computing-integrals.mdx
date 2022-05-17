@@ -1,0 +1,26 @@
+---
+sidebar_position: 1
+---
+
+# Computing Integrals
+
+Few things are easier than a rate of change that depends upon the independent variable:
+
+$$
+\frac{dx}{dt} = f(t)
+$$
+
+You would compute $x(t)$ with an algorithm such as the midpoint method or trapezoidal rule.
+Just start with a given value of
+$t_0$, calculate the (instantaneous) rate of change $f(t_0)$, and multiply by a small amount of change $\Delta t$.
+
+Repeat the process enough times such that $t_n=t_{n-1}+\Delta t$, and you
+will have approximated $x(t_n)$, an accumulation of small changes.
+
+## References
+
+Linge, S., & Langtangen, H. P. (2020). _Programming for Computations: A Gentle Introduction to Numerical Simulations with Python_. Springer Nature.
+
+import FrillEmbeddedWidget from "../../src/components/FrillEmbeddedWidget";
+
+<FrillEmbeddedWidget />

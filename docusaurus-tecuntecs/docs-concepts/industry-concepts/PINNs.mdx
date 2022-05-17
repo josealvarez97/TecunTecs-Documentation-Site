@@ -1,0 +1,52 @@
+---
+sidebar_position: 2
+---
+
+# Physics Informed Neural Networks
+
+## Neural network differential equations solvers
+
+A friend once said, "Neural Networks are the solutions to all the world's problems." He was obviously joking, they are not, but statistics can be used to solve differential equations smartly.
+
+Neural networks may approximate the solution to a differential equation and boundary conditions. The neural network is trained based on how well the neural network's loss function is satisfying the differential equation and boundary conditions.
+
+For example, suppose we have the following differential equation and boundary conditions
+
+$$
+
+\bold{P}:
+\begin{cases}
+      \frac{\delta^2 u}{\delta x^2}(x) = f(x) \\
+      u(0) = u(1) = 0
+\end{cases}
+$$
+
+We will call our [neural network](https://www.investopedia.com/terms/n/neuralnetwork.asp) $u_{net}(x)$, and encode the boundary conditions as a loss function
+
+$$
+L_{BC} = u_{net}(0)^2 + u_{net}(1)^2
+$$
+
+The intuition is very simple: If the resulting model is too far from zero at the boundaries, that means the model is pretty wrong! (Remember that we defined our boundary conditions to be zero.) A loss function ought not be unique in most cases, but a sum of squares is a good start: it takes into account the magnitud of negative values and encodes information of the boundary conditions very well.
+
+The next thing to consider as part of our loss function is the differential equation in itself. We want our loss function to take this into account. Assuming that our neural network consists of a series of connected differentiable functions, we can represent how bad the model is by squaring the magnitude of its error (we divide by $N$ to get the average error across al points $x_i$)
+
+$$
+L_{residual} = \frac{1}{N} \sum^N_{i=0} \left( \frac{\delta^2u_{net}}{\delta x^2} (x_i) - f(x_i) \right)^2
+$$
+
+Then, the total loss function is
+
+$$
+L = L_{BC} + L_{residual}
+$$
+
+To minimize the loss function is to solve the differential equation.
+
+## References
+
+https://developer.download.nvidia.com/assets/modulus/secure/Modulus_v21.06_User_Guide.pdf
+
+import FrillEmbeddedWidget from "../../src/components/FrillEmbeddedWidget";
+
+<FrillEmbeddedWidget />

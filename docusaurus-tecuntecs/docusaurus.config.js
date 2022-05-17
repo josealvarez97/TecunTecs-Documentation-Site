@@ -77,6 +77,17 @@ const katex = require("rehype-katex");
         rehypePlugins: [katex],
       },
     ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "docs-concepts",
+        path: "docs-concepts",
+        routeBasePath: "docs-concepts",
+        sidebarPath: require.resolve("./sidebars.js"),
+        remarkPlugins: [math],
+        rehypePlugins: [katex],
+      },
+    ],
   ],
   stylesheets: [
     {
@@ -109,6 +120,12 @@ const katex = require("rehype-katex");
           //   label: "CFD Optimization",
           //   activeBaseRegex: `/docs-cfdo/`,
           // },
+          {
+            to: "/docs-concepts/intro",
+            position: "left",
+            label: "Learn Computational Engineering",
+            activeBaseRegex: `/docs-concepts/`,
+          },
           {
             type: "doc",
             docId: "intro",
